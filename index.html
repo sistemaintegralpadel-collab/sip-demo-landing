@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SiP! — Probá el club Demo</title>
+
+<!-- Open Graph para que WhatsApp muestre la tarjeta con imagen -->
+<meta property="og:title" content="SiP! — ¿Tenés WhatsApp? Ya tenés cancha!">
+<meta property="og:description" content="Probá el club Demo y reservá cancha o sumate a un evento como si fueras un jugador real, en menos de 1 minuto.">
+<meta property="og:image" content="https://demo.sip-padel.com/sip-logo.png">
+<meta property="og:url" content="https://demo.sip-padel.com">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --verde-neon: #39E673;
+    --verde-brillante: #5FFF8F;
+    --negro: #060807;
+    --negro-card: #0D120E;
+    --gris-linea: #1C2A1F;
+    --texto-secundario: #8FA396;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: var(--negro);
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+  }
+
+  /* Textura de fondo sutil — eco de la cancha, sin ser literal */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent 0, transparent 39px, rgba(57,230,115,0.035) 39px, rgba(57,230,115,0.035) 40px),
+      repeating-linear-gradient(90deg, transparent 0, transparent 39px, rgba(57,230,115,0.035) 39px, rgba(57,230,115,0.035) 40px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 900px;
+    height: 900px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(57,230,115,0.16) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--verde-neon);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .eyebrow .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--verde-neon);
+    box-shadow: 0 0 8px var(--verde-neon);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  .logo-wrap {
+    margin-bottom: 32px;
+    filter: drop-shadow(0 0 28px rgba(57,230,115,0.35));
+  }
+  .logo-wrap img {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .tagline {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin-bottom: 18px;
+  }
+  .tagline .accent { color: var(--verde-neon); }
+
+  .desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--texto-secundario);
+    max-width: 380px;
+    margin: 0 auto 40px;
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--verde-neon);
+    color: #04150A;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    padding: 18px 38px;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 0 0 0 rgba(57,230,115,0.5), 0 8px 24px rgba(57,230,115,0.25);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    position: relative;
+  }
+  .cta-btn:hover {
+    background: var(--verde-brillante);
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 6px rgba(57,230,115,0.12), 0 10px 28px rgba(57,230,115,0.3);
+  }
+  .cta-btn:active { transform: translateY(0); }
+  .cta-btn .icon { font-size: 20px; line-height: 1; }
+
+  .meta-row {
+    margin-top: 22px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--texto-secundario);
+    letter-spacing: 0.02em;
+  }
+
+  .footer {
+    margin-top: 56px;
+    padding-top: 22px;
+    border-top: 1px solid var(--gris-linea);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--texto-secundario);
+    letter-spacing: 0.04em;
+  }
+  .footer b { color: var(--verde-neon); font-weight: 500; }
+
+  @media (max-width: 420px) {
+    .tagline { font-size: 22px; }
+    .cta-btn { font-size: 15px; padding: 16px 28px; width: 100%; justify-content: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eyebrow .dot { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="wrap">
+
+    <div class="eyebrow"><span class="dot"></span> Club demo en vivo</div>
+
+    <div class="logo-wrap">
+      <img src="sip-logo.png" alt="SiP! — Sistema Integral de Pádel">
+    </div>
+
+    <h1 class="tagline">¿Tenés WhatsApp?<br><span class="accent">Ya tenés cancha.</span></h1>
+
+    <p class="desc">
+      Probá el club demo y reservá una cancha o sumate a un evento como si fueras un jugador real — en menos de 1 minuto.
+    </p>
+
+    <a class="cta-btn" id="ctaBtn" href="https://wa.me/5493517715224?text=Hola%21">
+      <span class="icon">🎾</span> Probar ahora
+    </a>
+
+    <div class="meta-row">sin descargar nada · respuesta inmediata</div>
+
+    <div class="footer">
+      <b>SiP!</b> · Hecho en Córdoba · Argentina
+    </div>
+
+  </div>
+
+</body>
+</html>
